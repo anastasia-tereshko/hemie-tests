@@ -2,9 +2,8 @@ console.log("������ Тест стартовал...");
 
 const chrome = require('selenium-webdriver/chrome');
 const { Builder, By, until } = require('selenium-webdriver');
-const path = require('path');
 
-// Устанавливаем путь к ChromeDriver вручную (в CI он будет в /usr/local/bin/chromedriver)
+// Указываем путь к ChromeDriver вручную
 const service = new chrome.ServiceBuilder('/usr/local/bin/chromedriver').build();
 chrome.setDefaultService(service);
 
@@ -18,7 +17,7 @@ chrome.setDefaultService(service);
     .forBrowser('chrome')
     .setChromeOptions(options)
     .build();
-    
+
   try {
     await driver.get('https://hemie.se/');
 
