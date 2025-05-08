@@ -21,7 +21,7 @@ const path = require('path');
     .setChromeOptions(options)
     .build();
 
-  try {
+ // try {
     await driver.get('https://hemie.se/');
 
     await driver.wait(until.elementLocated(By.xpath('//*[contains(@class, "header-btn primary")]')), 20000);
@@ -35,10 +35,10 @@ const path = require('path');
     await driver.wait(until.elementLocated(By.xpath('//*[contains(@class, "greeting")]')), 20000);
 
     console.log('✅ Login successful!');
-  } catch (error) {
-    console.error('❌ Error while logging in:', error);
-  } finally {
-    await driver.sleep(3000);
+  //} //catch (error) {
+    //console.error('❌ Error while logging in:', error);
+  //} finally {
+  //  await driver.sleep(3000);
     await driver.quit();
   }
 })();
