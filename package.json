@@ -8,6 +8,10 @@
   },
   "author": "Nastassia Tsiareshka",
   "type": "module",
+  "type": "module",
+"scripts": {
+  "test": "mocha"
+},
   "license": "ISC",
   "dependencies": {
     "selenium-webdriver": "^4.21.0"
