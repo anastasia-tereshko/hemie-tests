@@ -41,3 +41,4 @@ const { Builder, By, until } = require('selenium-webdriver');
     await driver.sleep(3000); // wait 3 sec to see the result
     await driver.quit();
   }
+})();
