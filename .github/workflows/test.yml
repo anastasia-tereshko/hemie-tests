@@ -1,17 +1,36 @@
-{
-  "name": "hemie-tests",
-  "version": "1.0.0",
-  "description": "Selenium tests for Hemie",
-  "type": "module",
-  "scripts": {
-    "test": "mocha login_test.js --timeout 60000"
-  },
-  "dependencies": {
-    "selenium-webdriver": "^4.21.0",
-    "chromedriver": "^124.0.0"
-  },
-  "devDependencies": {
-    "mocha": "^10.2.0",
-    "chai": "^4.3.7"
-  }
-}
+name: Run Selenium Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome --version
+
+      - name: Run test
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: node login_test.js
