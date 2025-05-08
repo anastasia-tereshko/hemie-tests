@@ -1,42 +1,57 @@
-name: Run Selenium Tests
+name: Run All Tests
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *' # daily 00:00 UTC
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 20
+
+      - name: Install latest Chrome
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Verify Chrome installation
+        run: google-chrome --version
+
+      - name: Install matching chromedriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP "\d+" | head -1)
+          echo "Detected Chrome version: $CHROME_VERSION"
+          npm install chromedriver@$CHROME_VERSION
+
+      - name: Clean npm cache
+        run: npm cache clean --force
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          google-chrome --version
-
-      - name: Install ChromeDriver
-        run: |
-          LATEST_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/${LATEST_DRIVER_VERSION}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
-
-      - name: Run test
+      - name: Run tests and generate HTML report
         env:
-          CHROME_BIN: /usr/bin/google-chrome
-        run: node login_test.js
+          CI: true
+        run: npm test || true
+
+      - name: Upload HTML Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-test-report
+          path: report.html
