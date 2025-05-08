@@ -1,6 +1,5 @@
 import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
-import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
