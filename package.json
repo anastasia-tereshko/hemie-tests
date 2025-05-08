@@ -7,7 +7,7 @@
     "test": "node login_test.js"
   },
   "dependencies": {
-    "selenium-webdriver": "^4.0.0",
-    "chromedriver": "^122.0.0"
+    "chromedriver": "^122.0.0",
+    "selenium-webdriver": "^4.32.0"
   }
 }
