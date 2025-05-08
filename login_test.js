@@ -3,9 +3,9 @@ const chrome = require('selenium-webdriver/chrome');
 const { Builder, By, until } = require('selenium-webdriver');
 (async function hemieLogin() {
   let options = new chrome.Options();
-  //options.addArguments('--headless');
-  //options.addArguments('--no-sandbox');
-  //options.addArguments('--disable-dev-shm-usage');
+  options.addArguments('--headless');
+  options.addArguments('--no-sandbox');
+  options.addArguments('--disable-dev-shm-usage');
 
   let driver = await new Builder()
     .forBrowser('chrome')
