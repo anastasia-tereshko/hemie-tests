@@ -4,7 +4,7 @@
   "description": "Selenium login test for hemie.se",
   "main": "login_test.js",
   "scripts": {
-    "test": "node login_test.js"
+    "test": "mocha . login_test.js"
   },
   "author": "Nastassia Tsiareshka",
   "type": "module",
