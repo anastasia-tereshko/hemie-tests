@@ -40,5 +40,5 @@ const path = require('path');
   //} finally {
   //  await driver.sleep(3000);
     await driver.quit();
-  }
+  //}
 })();
