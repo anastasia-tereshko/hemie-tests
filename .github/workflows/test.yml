@@ -22,28 +22,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Google Chrome
+      - name: Install Chrome 124
         run: |
           sudo apt-get update
           sudo apt-get install -y wget curl unzip fonts-liberation libappindicator3-1 \
             libatk-bridge2.0-0 libatk1.0-0 libcups2 libdbus-1-3 libgdk-pixbuf2.0-0 \
             libnspr4 libnss3 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 xdg-utils
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.119-1_amd64.deb
+          sudo apt install -y ./google-chrome-stable_124.0.6367.119-1_amd64.deb
 
-      - name: Get Chrome version
-        id: chrome-version
+      - name: Install ChromeDriver 124
         run: |
-          CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+')
-          echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_ENV
-
-      - name: Install ChromeDriver
-        run: |
-          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${{ env.CHROME_VERSION }}")
-          wget -q "https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip"
+          wget -q "https://chromedriver.storage.googleapis.com/124.0.6367.119/chromedriver_linux64.zip"
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Selenium test
-        run: node login_test.js
+        run: npm test
