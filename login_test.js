@@ -1,7 +1,17 @@
-const { Builder, By, Key, until } = require('selenium-webdriver');
-
+console.log("������ Тест стартовал...");
+const chrome = require('selenium-webdriver/chrome');
+const { Builder, By, until } = require('selenium-webdriver');
 (async function hemieLogin() {
-  let driver = await new Builder().forBrowser('chrome').build();
+  let options = new chrome.Options();
+  options.addArguments('--headless');
+  options.addArguments('--no-sandbox');
+  options.addArguments('--disable-dev-shm-usage');
+
+  let driver = await new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(options)
+    .build();
+    
   try {
     await driver.get('https://hemie.se/');
 
