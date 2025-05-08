@@ -1,14 +1,13 @@
 {
-  "name": "hemie-tests",
+  "name": "hemie-login-test",
   "version": "1.0.0",
-  "description": "Selenium login test for hemie.se",
-  "main": "login_test.js",
+  "description": "Login test for hemie.se using Selenium WebDriver and JavaScript",
+  "main": "loginTest.js",
   "scripts": {
     "test": "node login_test.js"
   },
-  "author": "Nastassia Tsiareshka",
-  "license": "ISC",
   "dependencies": {
-    "selenium-webdriver": "^4.21.0"
+    "selenium-webdriver": "^4.0.0",
+    "chromedriver": "^122.0.0"
   }
 }
