@@ -59,7 +59,7 @@ const { Builder, By, until } = require('selenium-webdriver');
     .forBrowser('chrome')
     .setChromeOptions(options)
     .build();*/
-    
+  (async function hemieLogin() {  
   try {
     await driver.get('https://hemie.se/');
 
