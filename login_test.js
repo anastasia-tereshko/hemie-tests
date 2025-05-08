@@ -1,16 +1,27 @@
 console.log("������ Тест стартовал...");
 const chrome = require('selenium-webdriver/chrome');
-const { Builder, By, until } = require('selenium-webdriver');
-(async function hemieLogin() {
-  let options = new chrome.Options();
-  options.addArguments('--headless');
-  options.addArguments('--no-sandbox');
-  options.addArguments('--disable-dev-shm-usage');
 
-  let driver = await new Builder()
-    .forBrowser('chrome')
-    .setChromeOptions(options)
-    .build();
+const { Builder } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+const path = require('path');
+
+// Указываем путь к chromedriver вручную
+const service = new chrome.ServiceBuilder('/usr/local/bin/chromedriver').build();
+chrome.setDefaultService(service);
+
+const options = new chrome.Options();
+options.addArguments('--headless');
+options.addArguments('--no-sandbox');
+options.addArguments('--disable-dev-shm-usage');
+
+const driver = new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
+
+module.exports = driver;
+
+(async function hemieLogin() {
     
   try {
     await driver.get('https://hemie.se/');
