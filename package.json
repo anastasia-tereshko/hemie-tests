@@ -1,19 +1,19 @@
+
 {
   "name": "hemie-tests",
   "version": "1.0.0",
-  "description": "Selenium login test for hemie.se",
+  "description": "Selenium WebDriver tests for Hemie.se",
   "main": "login_test.js",
   "scripts": {
-    "test": "mocha . login_test.js"
+    "test": "mocha login_test.js --timeout 60000"
   },
-  "author": "Nastassia Tsiareshka",
-  "type": "module",
-  "type": "module",
-"scripts": {
-  "test": "mocha"
-},
-  "license": "ISC",
   "dependencies": {
-    "selenium-webdriver": "^4.21.0"
+    "selenium-webdriver": "^4.0.0",
+    "chromedriver": "^106.0.0",
+    "chai": "^4.3.4"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

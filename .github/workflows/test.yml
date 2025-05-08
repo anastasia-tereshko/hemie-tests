@@ -1,57 +1,17 @@
-name: Run All Tests
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 0 * * *' # daily 00:00 UTC
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install latest Chrome
-        run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-
-      - name: Verify Chrome installation
-        run: google-chrome --version
-
-      - name: Install matching chromedriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | grep -oP "\d+" | head -1)
-          echo "Detected Chrome version: $CHROME_VERSION"
-          npm install chromedriver@$CHROME_VERSION
-
-      - name: Clean npm cache
-        run: npm cache clean --force
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests and generate HTML report
-        env:
-          CI: true
-        run: npm test || true
-
-      - name: Upload HTML Test Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: html-test-report
-          path: report.html
+{
+  "name": "hemie-tests",
+  "version": "1.0.0",
+  "description": "Selenium tests for Hemie",
+  "type": "module",
+  "scripts": {
+    "test": "mocha login_test.js --timeout 60000"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.21.0",
+    "chromedriver": "^124.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7"
+  }
+}
