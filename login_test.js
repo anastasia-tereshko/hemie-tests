@@ -5,10 +5,10 @@ const chrome = require('selenium-webdriver/chrome');
 const path = require('path');
 
 // Указываем путь к ChromeDriver вручную
-const service = new chrome.ServiceBuilder('/usr/local/bin/chromedriver').build();
+//const service = new chrome.ServiceBuilder('/usr/local/bin/chromedriver').build();
 
 // Устанавливаем службу ChromeDriver
-chrome.setDefaultService(service);
+//chrome.setDefaultService(service);
 
 (async function hemieLogin() {
   let options = new chrome.Options();
