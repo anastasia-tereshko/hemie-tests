@@ -29,14 +29,8 @@ describe('Login Test for Hemie', function () {
       .setChromeOptions(options)
       .build();
   });
-
-  after(async function () {
-    if (driver) {
-      await driver.quit();
-    }
-    fs.rmSync(userDataDir, { recursive: true, force: true });
-  });
-
+  
+  
   it('should log in successfully', async function () {
     await driver.get('https://hemie.se/');
 
@@ -53,4 +47,12 @@ describe('Login Test for Hemie', function () {
     const greeting = await driver.findElement(By.xpath('//*[contains(@class, "greeting")]')).getText();
     expect(greeting).to.contain('Hej'); // Пример: проверить, что в приветствии есть слово Hej
   });
+
+  after(async function () {
+    if (driver) {
+      await driver.quit();
+    }
+    fs.rmSync(userDataDir, { recursive: true, force: true });
+  });
+
 });
