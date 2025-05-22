@@ -79,8 +79,10 @@ describe("Login Test for Hemie", function () {
       20000
     );
 
-   await driver
-      .findElement(By.xpath("//h1[text()='God kväll, Anastasia!']"));
+    await driver.wait(
+      until.elementLocated(By.xpath("//h1[text()='God kväll, Anastasia!']")),
+      20000
+    );
 
     console.log("Test Login Test for Hemie passed");
   });
