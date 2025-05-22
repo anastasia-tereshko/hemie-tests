@@ -82,7 +82,7 @@ describe("Login Test for Hemie", function () {
     const greeting = await driver
       .findElement(By.xpath('//*[contains(@class, "greeting")]'))
       .getText();
-    expect(greeting).to.contain("God förmiddag, Anastasia!");
+    expect(greeting).to.contain("God kväll, Anastasia!");
 
     console.log("Test Login Test for Hemie passed");
   });
