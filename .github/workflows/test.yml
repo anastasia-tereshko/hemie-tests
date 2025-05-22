@@ -22,26 +22,26 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install latest Chrome
+      - name: Install dependencies for Chrome/Chromedriver
+        run: sudo apt-get update && sudo apt-get install -y jq unzip wget curl
+
+      - name: Install Chrome and Chromedriver
         run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
           sudo apt-get install -y google-chrome-stable
-
-      - name: Verify Chrome installation
-        run: google-chrome --version
-
-      - name: Install matching chromedriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | grep -oP "\d+" | head -1)
-          echo "Detected Chrome version: $CHROME_VERSION"
-          npm install chromedriver@$CHROME_VERSION
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -1)
+          CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r ".channels.Stable.version")
+          echo "Chrome version: $CHROME_VERSION"
+          echo "Using Chromedriver version: $CHROMEDRIVER_VERSION"
+          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
+          unzip chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+          chromedriver --version
 
       - name: Clean npm cache
         run: npm cache clean --force
 
-      - name: Install dependencies
+      - name: Install project dependencies
         run: npm install
 
       - name: Run tests and generate HTML report
