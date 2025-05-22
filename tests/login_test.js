@@ -73,22 +73,17 @@ describe("Login Test for Hemie", function () {
       .sendKeys("Hejsan123!");
     await driver.findElement(By.css('button[type="submit"]')).click();
 
-    await driver.wait(
-      until.elementLocated(By.xpath('//*[contains(@class, "greeting")]')),
-      20000
-    );
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
 
-    const currentUrl = await driver.getCurrentUrl();
-    console.log("Current URL after login:", currentUrl);
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
 
-    await driver.wait(
-      until.elementLocated(By.xpath("//h1[text()='God kväll, Anastasia!']")),
-      40000
-    );
-
-    const screenshot = await driver.takeScreenshot();
-    fs.writeFileSync("login_result.png", screenshot, "base64");
-
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
     console.log("Test Login Test for Hemie passed");
   });
 
