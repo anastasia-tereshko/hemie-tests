@@ -4,12 +4,17 @@
   "description": "Selenium WebDriver tests for Hemie.se",
   "type": "module",
   "scripts": {
-    "test": "mocha login_test.js --timeout 60000"
+    "test": "mocha --require @babel/register --reporter mocha-simple-html-reporter --reporter-options output=report.html --exit tests/**/*.js"
   },
-  "dependencies": {
-    "selenium-webdriver": "^4.0.0",
-    "chromedriver": "^113.0.0",
-    "chai": "^4.3.0",
-    "mocha": "^10.0.0"
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/register": "^7.27.1",
+    "chai": "^5.2.0",
+    "chromedriver": "^136.0.3",
+    "mocha": "^10.8.2",
+    "mocha-simple-html-reporter": "^2.0.0",
+    "prettier": "^3.5.3",
+    "selenium-webdriver": "^4.32.0"
   }
 }
