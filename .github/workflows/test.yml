@@ -55,3 +55,10 @@ jobs:
         with:
           name: html-test-report
           path: report.html
+
+      - name: Upload Login Screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-screenshot
+          path: login_result.png

@@ -78,10 +78,16 @@ describe("Login Test for Hemie", function () {
       20000
     );
 
+    const currentUrl = await driver.getCurrentUrl();
+    console.log("Current URL after login:", currentUrl);
+
     await driver.wait(
       until.elementLocated(By.xpath("//h1[text()='God kväll, Anastasia!']")),
       40000
     );
+
+    const screenshot = await driver.takeScreenshot();
+    fs.writeFileSync("login_result.png", screenshot, "base64");
 
     console.log("Test Login Test for Hemie passed");
   });
