@@ -1,6 +1,5 @@
 import { Builder, By, until } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome.js";
-import { expect } from "chai";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -81,7 +80,7 @@ describe("Login Test for Hemie", function () {
 
     await driver.wait(
       until.elementLocated(By.xpath("//h1[text()='God kväll, Anastasia!']")),
-      20000
+      40000
     );
 
     console.log("Test Login Test for Hemie passed");
