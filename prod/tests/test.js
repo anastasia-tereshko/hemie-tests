@@ -10,7 +10,7 @@ console.log("Use chromedriver:", chromedriverPath);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-describe("Login Logout", function () {
+describe("Login Logout PROD", function () {
   let driver;
   let userDataDir;
 
@@ -101,7 +101,7 @@ describe("Login Logout", function () {
       .findElement(By.xpath('//span[contains(text(), "Logga ut")]'))
       .click();
 
-    console.log("Test Login Logout passed");
+    console.log("Test Login Logout PROD passed");
   });
 
   after(async function () {
@@ -115,7 +115,7 @@ describe("Login Logout", function () {
   });
 });
 
-describe("Accept cookies", function () {
+describe("Accept cookies PROD", function () {
   let driver;
   let userDataDir;
 
@@ -176,7 +176,7 @@ describe("Accept cookies", function () {
       console.log("Pop up is gone");
     }
 
-    console.log("Test Accept cookies passed");
+    console.log("Test Accept cookies PROD passed");
   });
 
   after(async function () {
@@ -190,7 +190,7 @@ describe("Accept cookies", function () {
   });
 });
 
-describe("Decline cookies", function () {
+describe("Decline cookies PROD", function () {
   let driver;
   let userDataDir;
 
@@ -279,7 +279,7 @@ describe("Decline cookies", function () {
       20000
     );
 
-    console.log("Test Decline cookies passed");
+    console.log("Test Decline cookies PROD passed");
   });
 
   after(async function () {
