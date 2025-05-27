@@ -65,12 +65,12 @@ describe("Login Test for Hemie", function () {
       until.elementLocated(By.css('input[name="email"]')),
       20000
     );
-    await driver
-      .findElement(By.css('input[name="email"]'))
-      .sendKeys("anastasia.tereshko+32@solveit.dev");
+    const userEmail = "anastasia.tereshko+32@solveit.dev";
+    const userPassword = "Hejsan123!";
+    await driver.findElement(By.css('input[name="email"]')).sendKeys(userEmail);
     await driver
       .findElement(By.css('input[name="password"]'))
-      .sendKeys("Hejsan123!");
+      .sendKeys(userPassword);
     await driver.findElement(By.css('button[type="submit"]')).click();
 
     await driver.wait(async () => {
@@ -84,6 +84,12 @@ describe("Login Test for Hemie", function () {
     if (!finalUrl.includes("/home")) {
       throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
     }
+
+    await driver.wait(
+      until.elementLocated(By.className("default_avatar_icon")),
+      20000
+    );
+
     console.log("Test Login Test for Hemie passed");
   });
 
