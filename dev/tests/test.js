@@ -65,8 +65,8 @@ describe("Login Logout DEV", function () {
       until.elementLocated(By.css('input[name="email"]')),
       20000
     );
-    const userEmail = "anastasia.tereshko+32@solveit.dev";
-    const userPassword = "Hejsan123!";
+    const userEmail = "veronika.malahovskaya+27053@solveit.dev";
+    const userPassword = "Test12345!";
     await driver.findElement(By.css('input[name="email"]')).sendKeys(userEmail);
     await driver
       .findElement(By.css('input[name="password"]'))
