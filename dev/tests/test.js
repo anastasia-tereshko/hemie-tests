@@ -10,7 +10,7 @@ console.log("Use chromedriver:", chromedriverPath);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-describe("Login Logout", function () {
+describe("Login Logout DEV", function () {
   let driver;
   let userDataDir;
 
@@ -47,7 +47,7 @@ describe("Login Logout", function () {
 
   it("should log in successfully", async function () {
     this.timeout(20000);
-    await driver.get("https://hemie.se/");
+    await driver.get("https://dev.hemie.org/");
 
     await driver.wait(
       until.elementLocated(
@@ -65,8 +65,8 @@ describe("Login Logout", function () {
       until.elementLocated(By.css('input[name="email"]')),
       20000
     );
-    const userEmail = "anastasia.tereshko+32@solveit.dev";
-    const userPassword = "Hejsan123!";
+    const userEmail = "veronika.malahovskaya+27053@solveit.dev";
+    const userPassword = "Test12345!";
     await driver.findElement(By.css('input[name="email"]')).sendKeys(userEmail);
     await driver
       .findElement(By.css('input[name="password"]'))
@@ -101,7 +101,7 @@ describe("Login Logout", function () {
       .findElement(By.xpath('//span[contains(text(), "Logga ut")]'))
       .click();
 
-    console.log("Test Login Logout passed");
+    console.log("Test Login Logout DEV passed");
   });
 
   after(async function () {
@@ -115,7 +115,7 @@ describe("Login Logout", function () {
   });
 });
 
-describe("Accept cookies", function () {
+describe("Accept cookies DEV", function () {
   let driver;
   let userDataDir;
 
@@ -152,7 +152,7 @@ describe("Accept cookies", function () {
 
   it("should accept cookies successfully", async function () {
     this.timeout(20000);
-    await driver.get("https://hemie.se/");
+    await driver.get("https://dev.hemie.org/");
 
     await driver.wait(
       until.elementLocated(By.className("manager-cookie__wrapper")),
@@ -176,7 +176,7 @@ describe("Accept cookies", function () {
       console.log("Pop up is gone");
     }
 
-    console.log("Test Accept cookies passed");
+    console.log("Test Accept cookies DEV passed");
   });
 
   after(async function () {
@@ -190,7 +190,7 @@ describe("Accept cookies", function () {
   });
 });
 
-describe("Decline cookies", function () {
+describe("Decline cookies DEV", function () {
   let driver;
   let userDataDir;
 
@@ -227,7 +227,7 @@ describe("Decline cookies", function () {
 
   it("should decline cookies successfully", async function () {
     this.timeout(20000);
-    await driver.get("https://hemie.se/");
+    await driver.get("https://dev.hemie.org/");
 
     await driver.wait(
       until.elementLocated(By.className("manager-cookie__wrapper")),
@@ -279,7 +279,7 @@ describe("Decline cookies", function () {
       20000
     );
 
-    console.log("Test Decline cookies passed");
+    console.log("Test Decline cookies DEV passed");
   });
 
   after(async function () {

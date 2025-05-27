@@ -4,7 +4,10 @@
   "description": "Selenium WebDriver tests for Hemie.se",
   "type": "module",
   "scripts": {
-    "test": "mocha --require @babel/register --reporter mocha-simple-html-reporter --reporter-options output=report.html --exit tests/**/*.js"
+    "test": "mocha --require @babel/register --reporter mocha-simple-html-reporter --reporter-options output=report.html --exit **/tests/**/*.js", 
+    "test:prod": "mocha prod/tests/**/*.js",
+    "test:stage": "mocha stage/tests/**/*.js",
+    "test:dev": "mocha dev/tests/**/*.js"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
