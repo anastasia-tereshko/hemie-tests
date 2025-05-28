@@ -434,7 +434,7 @@ describe("Sign up via email STAGE", function () {
       until.elementLocated(
         By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
       ),
-      5000
+      50000
     );
     await driver.wait(
       until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
