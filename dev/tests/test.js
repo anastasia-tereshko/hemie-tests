@@ -460,12 +460,6 @@ describe("Sign up via email DEV", function () {
       balkongOption
     );
     await balkongOption.click();
-    // await driver
-    //   .findElement(By.className("ant-select-selection-overflow"))
-    //   .click();
-    // await driver
-    //   .findElement(By.xpath('//span[contains(text(), "Balkong")]'))
-    //   .click();
 
     await driver
       .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
@@ -474,7 +468,7 @@ describe("Sign up via email DEV", function () {
       .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
       .click();
     await driver.findElement(By.css("body")).click();
-    console.log("5");
+
     await driver
       .findElement(By.id("search-select-housing-group"))
       .sendKeys("AF Bostäder");
@@ -487,7 +481,7 @@ describe("Sign up via email DEV", function () {
     await driver
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
       .click();
-    console.log("6");
+
     await driver.wait(
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Lägg till bilder")]')
@@ -498,11 +492,11 @@ describe("Sign up via email DEV", function () {
       until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
       5000
     );
-    console.log("7");
+
     await driver
       .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
       .click();
-    console.log("8");
+
     await driver.wait(
       until.elementLocated(
         By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')

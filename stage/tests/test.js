@@ -441,12 +441,26 @@ describe("Sign up via email STAGE", function () {
       5000
     );
 
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Balkong")]'))
-      .click();
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
     await driver
       .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
       .click();
