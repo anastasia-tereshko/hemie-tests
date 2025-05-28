@@ -293,7 +293,7 @@ describe("Decline cookies DEV", function () {
   });
 });
 
-describe("Sign up via email DEV", function () {
+describe.only("Sign up via email DEV", function () {
   let driver;
   let userDataDir;
 
@@ -305,7 +305,7 @@ describe("Sign up via email DEV", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    //  options.addArguments("--headless=new");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -429,7 +429,7 @@ describe("Sign up via email DEV", function () {
     await driver
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
       .click();
-    console.log("3");
+
     this.timeout(60000);
     await driver.wait(
       until.elementLocated(
@@ -441,13 +441,32 @@ describe("Sign up via email DEV", function () {
       until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
       5000
     );
-    console.log("4");
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Balkong")]'))
-      .click();
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+    // await driver
+    //   .findElement(By.className("ant-select-selection-overflow"))
+    //   .click();
+    // await driver
+    //   .findElement(By.xpath('//span[contains(text(), "Balkong")]'))
+    //   .click();
+
     await driver
       .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
       .click();
