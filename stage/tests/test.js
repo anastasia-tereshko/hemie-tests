@@ -328,7 +328,7 @@ describe("Sign up via email STAGE", function () {
     }
   });
 
-  it("should accept cookies successfully", async function () {
+  it("should sign up via email successfully", async function () {
     this.timeout(20000);
     await driver.get("https://staging.hemie.org/");
 
