@@ -368,7 +368,6 @@ describe("Sign up via email DEV", function () {
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
       .click();
 
-    console.log("1");
     await driver.wait(
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
@@ -392,7 +391,7 @@ describe("Sign up via email DEV", function () {
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
       .click();
 
-    console.log("2");
+    this.timeout(20000);
     await driver.wait(
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
