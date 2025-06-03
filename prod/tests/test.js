@@ -292,3 +292,116 @@ describe("Decline cookies PROD", function () {
     }, 5000);
   });
 });
+
+describe("Forgot password PROD", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should show forgot password pop up", async function () {
+    this.timeout(20000);
+    await driver.get("https://hemie.se/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//*[contains(@class, "header-btn primary")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Logga in")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//button[contains(text(), "Glömt lösenord?")]')
+      ),
+      10000
+    );
+
+    const forgotPasswordBtn = await driver.findElement(
+      By.xpath('//button[contains(text(), "Glömt lösenord?")]')
+    );
+    await driver.executeScript("arguments[0].click();", forgotPasswordBtn);
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Återställ lösenord")]')
+      ),
+      5000
+    );
+
+    await driver
+      .findElement(By.id("email"))
+      .sendKeys("anastasia.tereshko+32@solveit.dev");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Återställ lösenord")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Återställ lösenord!")]')
+      ),
+      5000
+    );
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//p[contains(text(), "Ett e-postmeddelande har skickats till den angivna e-postadressen. Det kan ta några minuter innan meddelandet når fram.")]'
+        )
+      ),
+      2000
+    );
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Tillbaka till login")]')
+      ),
+      2000
+    );
+
+    console.log("Test Forgot password PROD passed");
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
