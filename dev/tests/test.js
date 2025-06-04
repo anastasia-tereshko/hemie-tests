@@ -1064,9 +1064,10 @@ describe("Log in from Sign up form DEV", function () {
       20000
     );
 
-    await driver
+    const areaSelect = await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
+    await driver.executeScript("arguments[0].click();", areaSelect);
     await driver.findElement(By.css("body")).click();
 
     await driver
