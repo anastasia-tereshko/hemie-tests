@@ -293,7 +293,7 @@ describe("Decline cookies STAGE", function () {
   });
 });
 
-describe.only("Sign up via email STAGE", function () {
+describe("Sign up via email STAGE", function () {
   let driver;
   let userDataDir;
 
@@ -305,7 +305,7 @@ describe.only("Sign up via email STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    //  options.addArguments("--headless=new");
+    options.addArguments("--headless=new");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
