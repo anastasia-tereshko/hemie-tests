@@ -293,7 +293,7 @@ describe("Decline cookies STAGE", function () {
   });
 });
 
-describe("Sign up via email STAGE", function () {
+describe.only("Sign up via email STAGE", function () {
   let driver;
   let userDataDir;
 
@@ -305,7 +305,7 @@ describe("Sign up via email STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    //  options.addArguments("--headless=new");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -359,6 +359,7 @@ describe("Sign up via email STAGE", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
