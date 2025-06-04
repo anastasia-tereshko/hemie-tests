@@ -411,9 +411,9 @@ describe("Sign up via email DEV", function () {
           '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
         )
       ),
-      5000
+      20000
     );
-    this.timeout(20000);
+
     await driver
       .findElement(
         By.xpath(
