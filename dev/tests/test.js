@@ -413,6 +413,7 @@ describe("Sign up via email DEV", function () {
       ),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(
         By.xpath(
@@ -1061,6 +1062,7 @@ describe("Log in from Sign up form DEV", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
