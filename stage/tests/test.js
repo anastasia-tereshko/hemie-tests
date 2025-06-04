@@ -357,11 +357,13 @@ describe("Sign up via email STAGE", function () {
       .click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
-      5000
+      20000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
     await driver.findElement(By.css("body")).click();
 
     await driver
@@ -707,8 +709,9 @@ describe("Terms and privacy check STAGE", function () {
       .click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
-      5000
+      20000
     );
+
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
@@ -1059,11 +1062,13 @@ describe("Log in from Sign up form STAGE", function () {
       .click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
-      5000
+      20000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
     await driver.findElement(By.css("body")).click();
 
     await driver

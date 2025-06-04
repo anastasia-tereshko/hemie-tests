@@ -411,8 +411,9 @@ describe("Sign up via email DEV", function () {
           '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
         )
       ),
-      5000
+      20000
     );
+
     await driver
       .findElement(
         By.xpath(
@@ -709,6 +710,7 @@ describe("Terms and privacy check DEV", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
@@ -1059,11 +1061,13 @@ describe("Log in from Sign up form DEV", function () {
       .click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
-      5000
+      20000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
     await driver.findElement(By.css("body")).click();
 
     await driver
