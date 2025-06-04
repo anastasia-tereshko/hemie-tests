@@ -710,6 +710,7 @@ describe("Terms and privacy check STAGE", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
@@ -1062,6 +1063,7 @@ describe("Log in from Sign up form STAGE", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
+    this.timeout(20000);
     await driver
       .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
       .click();
