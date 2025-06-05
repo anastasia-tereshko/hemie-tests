@@ -328,7 +328,7 @@ describe("Sign up via email STAGE", function () {
     }
   });
 
-  it("should sign up via email successfully", async function () {
+  it("should  sign up via email successfully", async function () {
     this.timeout(20000);
     await driver.get("https://staging.hemie.org/");
 
@@ -357,13 +357,11 @@ describe("Sign up via email STAGE", function () {
       .click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
-      20000
+      5000
     );
-
-    const areaSelect = await driver.findElement(
-      By.xpath('//span[contains(text(), "Vaxholm")]')
-    );
-    await driver.executeScript("arguments[0].click();", areaSelect);
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
+      .click();
     await driver.findElement(By.css("body")).click();
 
     await driver
@@ -393,6 +391,7 @@ describe("Sign up via email STAGE", function () {
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
       .click();
 
+    this.timeout(20000);
     await driver.wait(
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
@@ -412,8 +411,9 @@ describe("Sign up via email STAGE", function () {
           '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
         )
       ),
-      5000
+      20000
     );
+
     await driver
       .findElement(
         By.xpath(
@@ -442,7 +442,6 @@ describe("Sign up via email STAGE", function () {
       until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
       5000
     );
-
     const dropdownTrigger = await driver.findElement(
       By.className("ant-select-selection-overflow")
     );
