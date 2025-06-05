@@ -293,7 +293,7 @@ describe("Decline cookies DEV", function () {
   });
 });
 
-describe("Sign up via email DEV", function () {
+describe.only("Sign up via email DEV", function () {
   let driver;
   let userDataDir;
 
@@ -305,7 +305,7 @@ describe("Sign up via email DEV", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    //  options.addArguments("--headless=new");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -359,9 +359,10 @@ describe("Sign up via email DEV", function () {
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
     await driver.findElement(By.css("body")).click();
 
     await driver
@@ -413,14 +414,12 @@ describe("Sign up via email DEV", function () {
       ),
       20000
     );
-
-    await driver
-      .findElement(
-        By.xpath(
-          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
-        )
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
       )
-      .click();
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
 
     await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
     await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
