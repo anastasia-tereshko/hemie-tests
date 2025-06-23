@@ -293,7 +293,7 @@ describe("Decline cookies DEV", function () {
   });
 });
 
-describe("Sign up via email DEV", function () {
+describe("Sign up via email (1 room, 5000 rent, Stockholm) DEV", function () {
   let driver;
   let userDataDir;
 
@@ -352,9 +352,12 @@ describe("Sign up via email DEV", function () {
     await driver
       .findElement(By.xpath('//div[contains(text(), "5000")]'))
       .click();
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
@@ -472,11 +475,6 @@ describe("Sign up via email DEV", function () {
     await driver
       .findElement(By.id("search-select-housing-group"))
       .sendKeys("AF Bostäder");
-    await driver
-      .findElement(By.className("ant-input css-1m63z2v ant-input-outlined"))
-      .sendKeys(
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-      );
 
     await driver
       .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
@@ -516,7 +514,9 @@ describe("Sign up via email DEV", function () {
       throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
     }
 
-    console.log("Test Sign up via email DEV passed");
+    console.log(
+      "Test Sign up via email DEV (1 room, 5000 rent, Stockholm) passed"
+    );
   });
 
   after(async function () {
@@ -1762,6 +1762,1252 @@ describe("Login by clicking on Like icon DEV", function () {
       .click();
 
     console.log("Test Login by clicking on Like icon DEV passed");
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Sign up via email (2 rooms, 7500 rent, Gothenburg) DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  sign up via email successfully", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver.findElement(By.xpath('//div[contains(text(), "2")]')).click();
+    await driver
+      .findElement(By.xpath('//div[contains(text(), "7500")]'))
+      .click();
+    const secondList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[2]"
+      )
+    );
+    await secondList.click();
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//span[contains(text(), "Asperö, Brännö, Donsö, Köpstadsö, Styrsö, Vrå")]'
+        )
+      ),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath(
+        '//span[contains(text(), "Asperö, Brännö, Donsö, Köpstadsö, Styrsö, Vrå")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    const name = "Autotests name";
+    const randomNumber = Math.floor(Math.random() * 100000);
+    const email = `qa+${randomNumber}@solveit.dev`;
+    const password = "Test12345!";
+    await driver.findElement(By.id("signUpName")).sendKeys(name);
+    await driver.findElement(By.id("signUpEmail")).sendKeys(email);
+    await driver.findElement(By.id("signUpPassword")).sendKeys(password);
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(20000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "3/5")]')),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//*[contains(@placeholder, "Ange din adress")]'))
+      .sendKeys("wad");
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+        )
+      ),
+      20000
+    );
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
+
+    await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
+    await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
+    await driver.findElement(By.id("square")).sendKeys("36");
+    await driver.findElement(By.id("rent")).sendKeys("2500");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(60000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
+      ),
+      50000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
+      5000
+    );
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
+      .click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
+      .click();
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.id("search-select-housing-group"))
+      .sendKeys("AF Bostäder");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Lägg till bilder")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
+      5000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')
+      ),
+      5000
+    );
+
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
+
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
+
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
+
+    console.log(
+      "Test Sign up via email (2 rooms, 7500 rent, Gothenburg) DEV passed"
+    );
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Sign up via email (3 rooms, 10000 rent, Malmo) DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  sign up via email successfully", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver.findElement(By.xpath('//div[contains(text(), "3")]')).click();
+    await driver
+      .findElement(By.xpath('//div[contains(text(), "10000")]'))
+      .click();
+    const thirdList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[3]"
+      )
+    );
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Limhamn")]')),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Limhamn")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    const name = "Autotests name";
+    const randomNumber = Math.floor(Math.random() * 100000);
+    const email = `qa+${randomNumber}@solveit.dev`;
+    const password = "Test12345!";
+    await driver.findElement(By.id("signUpName")).sendKeys(name);
+    await driver.findElement(By.id("signUpEmail")).sendKeys(email);
+    await driver.findElement(By.id("signUpPassword")).sendKeys(password);
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(20000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "3/5")]')),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//*[contains(@placeholder, "Ange din adress")]'))
+      .sendKeys("wad");
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+        )
+      ),
+      20000
+    );
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
+
+    await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
+    await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
+    await driver.findElement(By.id("square")).sendKeys("36");
+    await driver.findElement(By.id("rent")).sendKeys("2500");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(60000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
+      ),
+      50000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
+      5000
+    );
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
+      .click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
+      .click();
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.id("search-select-housing-group"))
+      .sendKeys("AF Bostäder");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Lägg till bilder")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
+      5000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')
+      ),
+      5000
+    );
+
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
+
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
+
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
+
+    console.log(
+      "Test Sign up via email (3 rooms, 10000 rent, Malmo) DEV passed"
+    );
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Sign up via email (4 rooms, 12500 rent, Stockholm 2 options) DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  sign up via email successfully", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver.findElement(By.xpath('//div[contains(text(), "4")]')).click();
+    await driver
+      .findElement(By.xpath('//div[contains(text(), "12500")]'))
+      .click();
+    const thirdList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Upplands Väsby")]')
+      ),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Upplands Väsby")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Vallentuna")]')),
+      5000
+    );
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vallentuna")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    const name = "Autotests name";
+    const randomNumber = Math.floor(Math.random() * 100000);
+    const email = `qa+${randomNumber}@solveit.dev`;
+    const password = "Test12345!";
+    await driver.findElement(By.id("signUpName")).sendKeys(name);
+    await driver.findElement(By.id("signUpEmail")).sendKeys(email);
+    await driver.findElement(By.id("signUpPassword")).sendKeys(password);
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(20000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "3/5")]')),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//*[contains(@placeholder, "Ange din adress")]'))
+      .sendKeys("wad");
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+        )
+      ),
+      20000
+    );
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
+
+    await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
+    await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
+    await driver.findElement(By.id("square")).sendKeys("36");
+    await driver.findElement(By.id("rent")).sendKeys("2500");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(60000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
+      ),
+      50000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
+      5000
+    );
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
+      .click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
+      .click();
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.id("search-select-housing-group"))
+      .sendKeys("AF Bostäder");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Lägg till bilder")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
+      5000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')
+      ),
+      5000
+    );
+
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
+
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
+
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
+
+    console.log(
+      "Test Sign up via email (4 rooms, 12500 rent, Stockholm 2 options) DEV passed"
+    );
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  sign up via email successfully", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver.findElement(By.xpath('//div[contains(text(), "5")]')).click();
+    await driver.findElement(By.xpath('//span[contains(text(), "+")]')).click();
+    let plusAmount = await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          "(//div[contains(@class,'ant-select-item-option-content')])[1]"
+        )
+      ),
+      5000
+    );
+    await plusAmount.click();
+    const thirdList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[2]"
+      )
+    );
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Kållered")]')),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Kållered")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Hisings backa")]')
+      ),
+      5000
+    );
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Hisings backa")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    const name = "Autotests name";
+    const randomNumber = Math.floor(Math.random() * 100000);
+    const email = `qa+${randomNumber}@solveit.dev`;
+    const password = "Test12345!";
+    await driver.findElement(By.id("signUpName")).sendKeys(name);
+    await driver.findElement(By.id("signUpEmail")).sendKeys(email);
+    await driver.findElement(By.id("signUpPassword")).sendKeys(password);
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(20000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "3/5")]')),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//*[contains(@placeholder, "Ange din adress")]'))
+      .sendKeys("wad");
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+        )
+      ),
+      20000
+    );
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
+
+    await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
+    await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
+    await driver.findElement(By.id("square")).sendKeys("36");
+    await driver.findElement(By.id("rent")).sendKeys("2500");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(60000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
+      ),
+      50000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
+      5000
+    );
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
+      .click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
+      .click();
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.id("search-select-housing-group"))
+      .sendKeys("AF Bostäder");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Lägg till bilder")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
+      5000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')
+      ),
+      5000
+    );
+
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
+
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
+
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
+
+    console.log(
+      "Test Sign up via email (5 rooms, + rent, Gothenburg 2 options) DEV passed"
+    );
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Sign up via email (2 rooms, + rent, Malmo 2 options) DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  sign up via email successfully", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver.findElement(By.xpath('//div[contains(text(), "2")]')).click();
+    await driver.findElement(By.xpath('//span[contains(text(), "+")]')).click();
+    let plusAmount = await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          "(//div[contains(@class,'ant-select-item-option-content')])[1]"
+        )
+      ),
+      5000
+    );
+    await plusAmount.click();
+    const thirdList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[3]"
+      )
+    );
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Malmö, södra/östra")]')
+      ),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Malmö, södra/östra")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+
+    await thirdList.click();
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Malmö, Östra")]')
+      ),
+      5000
+    );
+    const areaSelect = await driver.findElement(
+      By.xpath('//span[contains(text(), "Malmö, Östra")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelect);
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    const name = "Autotests name";
+    const randomNumber = Math.floor(Math.random() * 100000);
+    const email = `qa+${randomNumber}@solveit.dev`;
+    const password = "Test12345!";
+    await driver.findElement(By.id("signUpName")).sendKeys(name);
+    await driver.findElement(By.id("signUpEmail")).sendKeys(email);
+    await driver.findElement(By.id("signUpPassword")).sendKeys(password);
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(20000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "3/5")]')),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//*[contains(@placeholder, "Ange din adress")]'))
+      .sendKeys("wad");
+    await driver.wait(
+      until.elementLocated(
+        By.xpath(
+          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+        )
+      ),
+      20000
+    );
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
+      )
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
+
+    await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
+    await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
+    await driver.findElement(By.id("square")).sendKeys("36");
+    await driver.findElement(By.id("rent")).sendKeys("2500");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    this.timeout(60000);
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Fyll i detaljer om din bostad")]')
+      ),
+      50000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "4/5")]')),
+      5000
+    );
+    const dropdownTrigger = await driver.findElement(
+      By.className("ant-select-selection-overflow")
+    );
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      dropdownTrigger
+    );
+    await dropdownTrigger.click();
+
+    const balkongOption = await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Balkong")]')),
+      10000
+    );
+    await driver.wait(until.elementIsVisible(balkongOption), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      balkongOption
+    );
+    await balkongOption.click();
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Badkar")]'))
+      .click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Rullstolsanpassad")]'))
+      .click();
+    await driver.findElement(By.css("body")).click();
+
+    await driver
+      .findElement(By.id("search-select-housing-group"))
+      .sendKeys("AF Bostäder");
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Lägg till bilder")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "5/5")]')),
+      5000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Fixa bilder senare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[contains(text(), "Öka din annons synlighet")]')
+      ),
+      5000
+    );
+
+    await driver.wait(async () => {
+      const url = await driver.getCurrentUrl();
+      return url.includes("/home");
+    }, 30000);
+
+    const finalUrl = await driver.getCurrentUrl();
+    console.log("Redirected to:", finalUrl);
+
+    if (!finalUrl.includes("/home")) {
+      throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
+    }
+
+    console.log(
+      "Test Sign up via email (2 rooms, + rent, Malmo 2 options) DEV passed"
+    );
   });
 
   after(async function () {
