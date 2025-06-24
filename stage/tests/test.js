@@ -414,13 +414,12 @@ describe("Sign up via email (1 room, 5000 rent, Stockholm) STAGE", function () {
       20000
     );
 
-    await driver
-      .findElement(
-        By.xpath(
-          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
-        )
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
       )
-      .click();
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
 
     await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
     await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
