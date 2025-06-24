@@ -556,10 +556,10 @@ body {
                     <li class="passes">passes: <em>1</em></li>
                     <li class="pending">pending: <em>0</em></li>
                     <li class="failures">failures: <em>0</em></li>
-                    <li class="duration">duration: <em>25s</em></li>
+                    <li class="duration">duration: <em>7.3s</em></li>
                 </ul>
             </div>
-            <ul id="report"><li class="suite"><h1>Sign up via email (5 rooms, + rent, Gothenburg 2 options) DEV</h1><ul><li class="test pass slow"><h2>should  sign up via email successfully<span class="duration">22338ms</span></h2><pre><code>async function () {
+            <ul id="report"><li class="suite"><h1>Invalid email sign up DEV</h1><ul><li class="test pass slow"><h2>should show an error<span class="duration">6355ms</span></h2><pre><code>async function () {
     this.timeout(20000);
     await driver.get(&#x22;https://dev.hemie.org/&#x22;);
     await driver.wait(
@@ -577,43 +577,25 @@ body {
       ),
       5000
     );
-    await driver.findElement(By.xpath(&#x27;//div[contains(text(), &#x22;5&#x22;)]&#x27;)).click();
-    await driver.findElement(By.xpath(&#x27;//span[contains(text(), &#x22;+&#x22;)]&#x27;)).click();
-    let plusAmount = await driver.wait(
-      until.elementLocated(
-        By.xpath(
-          &#x22;(//div[contains(@class,&#x27;ant-select-item-option-content&#x27;)])[1]&#x22;
-        )
-      ),
-      5000
-    );
-    await plusAmount.click();
-    const thirdList = await driver.findElement(
+    await driver.findElement(By.xpath(&#x27;//div[contains(text(), &#x22;1&#x22;)]&#x27;)).click();
+    await driver
+      .findElement(By.xpath(&#x27;//div[contains(text(), &#x22;5000&#x22;)]&#x27;))
+      .click();
+    const firstList = await driver.findElement(
       By.xpath(
-        &#x22;(//div[contains(@class,&#x27;ant-select-selection-overflow-item ant-select-selection-overflow-item-rest&#x27;)])[2]&#x22;
+        &#x22;(//div[contains(@class,&#x27;ant-select-selection-overflow-item ant-select-selection-overflow-item-rest&#x27;)])[1]&#x22;
       )
     );
-    await thirdList.click();
+    await firstList.click();
     await driver.wait(
-      until.elementLocated(By.xpath(&#x27;//span[contains(text(), &#x22;K&#xE5;llered&#x22;)]&#x27;)),
+      until.elementLocated(By.xpath(&#x27;//span[contains(text(), &#x22;Vaxholm&#x22;)]&#x27;)),
       5000
     );
-    const areaSelectFirst = await driver.findElement(
-      By.xpath(&#x27;//span[contains(text(), &#x22;K&#xE5;llered&#x22;)]&#x27;)
+    const vaxholmOption = await driver.findElement(
+      By.xpath(&#x27;//span[contains(text(), &#x22;Vaxholm&#x22;)]&#x27;)
     );
-    await driver.executeScript(&#x22;arguments[0].click();&#x22;, areaSelectFirst);
-    await driver.findElement(By.css(&#x22;body&#x22;)).click();
-    await thirdList.click();
-    await driver.wait(
-      until.elementLocated(
-        By.xpath(&#x27;//span[contains(text(), &#x22;Hisings backa&#x22;)]&#x27;)
-      ),
-      5000
-    );
-    const areaSelect = await driver.findElement(
-      By.xpath(&#x27;//span[contains(text(), &#x22;Hisings backa&#x22;)]&#x27;)
-    );
-    await driver.executeScript(&#x22;arguments[0].click();&#x22;, areaSelect);
+    await driver.wait(until.elementIsVisible(vaxholmOption), 5000);
+    await vaxholmOption.click();
     await driver.findElement(By.css(&#x22;body&#x22;)).click();
     await driver
       .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;G&#xE5; vidare&#x22;)]&#x27;))
@@ -630,7 +612,7 @@ body {
     );
     const name = &#x22;Autotests name&#x22;;
     const randomNumber = Math.floor(Math.random() * 100000);
-    const email = &#x60;qa+${randomNumber}@solveit.dev&#x60;;
+    const email = &#x60;qa+${randomNumber}@&#x60;;
     const password = &#x22;Test12345!&#x22;;
     await driver.findElement(By.id(&#x22;signUpName&#x22;)).sendKeys(name);
     await driver.findElement(By.id(&#x22;signUpEmail&#x22;)).sendKeys(email);
@@ -638,114 +620,13 @@ body {
     await driver
       .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;G&#xE5; vidare&#x22;)]&#x27;))
       .click();
-    this.timeout(20000);
     await driver.wait(
       until.elementLocated(
-        By.xpath(&#x27;//h1[contains(text(), &#x22;Hur bor du idag?&#x22;)]&#x27;)
+        By.xpath(&#x27;//p[contains(text(), &#x22;Ange en giltig e-postadress.&#x22;)]&#x27;)
       ),
-      20000
+      2000
     );
-    await driver.wait(
-      until.elementLocated(By.xpath(&#x27;//p[contains(text(), &#x22;3/5&#x22;)]&#x27;)),
-      5000
-    );
-    await driver
-      .findElement(By.xpath(&#x27;//*[contains(@placeholder, &#x22;Ange din adress&#x22;)]&#x27;))
-      .sendKeys(&#x22;wad&#x22;);
-    await driver.wait(
-      until.elementLocated(
-        By.xpath(
-          &#x27;//div[contains(text(), &#x22;Wadk&#xF6;ping, BERTIL WALD&#xC9;NS GATA, &#xD6;rebro, Sverige&#x22;)]&#x27;
-        )
-      ),
-      20000
-    );
-    const areaSelectSecond = await driver.findElement(
-      By.xpath(
-        &#x27;//div[contains(text(), &#x22;Wadk&#xF6;ping, BERTIL WALD&#xC9;NS GATA, &#xD6;rebro, Sverige&#x22;)]&#x27;
-      )
-    );
-    await driver.executeScript(&#x22;arguments[0].click();&#x22;, areaSelectSecond);
-    await driver.findElement(By.xpath(&#x27;//div[contains(text(), &#x22;6&#x22;)]&#x27;)).click();
-    await driver.findElement(By.xpath(&#x27;//div[contains(text(), &#x22;BV&#x22;)]&#x27;)).click();
-    await driver.findElement(By.id(&#x22;square&#x22;)).sendKeys(&#x22;36&#x22;);
-    await driver.findElement(By.id(&#x22;rent&#x22;)).sendKeys(&#x22;2500&#x22;);
-    await driver
-      .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;G&#xE5; vidare&#x22;)]&#x27;))
-      .click();
-    this.timeout(60000);
-    await driver.wait(
-      until.elementLocated(
-        By.xpath(&#x27;//p[contains(text(), &#x22;Fyll i detaljer om din bostad&#x22;)]&#x27;)
-      ),
-      50000
-    );
-    await driver.wait(
-      until.elementLocated(By.xpath(&#x27;//p[contains(text(), &#x22;4/5&#x22;)]&#x27;)),
-      5000
-    );
-    const dropdownTrigger = await driver.findElement(
-      By.className(&#x22;ant-select-selection-overflow&#x22;)
-    );
-    await driver.executeScript(
-      &#x22;arguments[0].scrollIntoView({block: &#x27;center&#x27;});&#x22;,
-      dropdownTrigger
-    );
-    await dropdownTrigger.click();
-    const balkongOption = await driver.wait(
-      until.elementLocated(By.xpath(&#x27;//span[contains(text(), &#x22;Balkong&#x22;)]&#x27;)),
-      10000
-    );
-    await driver.wait(until.elementIsVisible(balkongOption), 5000);
-    await driver.executeScript(
-      &#x22;arguments[0].scrollIntoView({block: &#x27;center&#x27;});&#x22;,
-      balkongOption
-    );
-    await balkongOption.click();
-    await driver
-      .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;Badkar&#x22;)]&#x27;))
-      .click();
-    await driver
-      .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;Rullstolsanpassad&#x22;)]&#x27;))
-      .click();
-    await driver.findElement(By.css(&#x22;body&#x22;)).click();
-    await driver
-      .findElement(By.id(&#x22;search-select-housing-group&#x22;))
-      .sendKeys(&#x22;AF Bost&#xE4;der&#x22;);
-    await driver
-      .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;G&#xE5; vidare&#x22;)]&#x27;))
-      .click();
-    await driver.wait(
-      until.elementLocated(
-        By.xpath(&#x27;//h1[contains(text(), &#x22;L&#xE4;gg till bilder&#x22;)]&#x27;)
-      ),
-      20000
-    );
-    await driver.wait(
-      until.elementLocated(By.xpath(&#x27;//p[contains(text(), &#x22;5/5&#x22;)]&#x27;)),
-      5000
-    );
-    await driver
-      .findElement(By.xpath(&#x27;//span[contains(text(), &#x22;Fixa bilder senare&#x22;)]&#x27;))
-      .click();
-    await driver.wait(
-      until.elementLocated(
-        By.xpath(&#x27;//h2[contains(text(), &#x22;&#xD6;ka din annons synlighet&#x22;)]&#x27;)
-      ),
-      5000
-    );
-    await driver.wait(async () =&#x3E; {
-      const url = await driver.getCurrentUrl();
-      return url.includes(&#x22;/home&#x22;);
-    }, 30000);
-    const finalUrl = await driver.getCurrentUrl();
-    console.log(&#x22;Redirected to:&#x22;, finalUrl);
-    if (!finalUrl.includes(&#x22;/home&#x22;)) {
-      throw new Error(&#x60;Unexpected redirect URL after login: ${finalUrl}&#x60;);
-    }
-    console.log(
-      &#x22;Test Sign up via email (5 rooms, + rent, Gothenburg 2 options) DEV passed&#x22;
-    );
+    console.log(&#x22;Invalid email sign up DEV passed&#x22;);
   }</code></pre></li></ul></li></ul>
         </div>
         <script>
