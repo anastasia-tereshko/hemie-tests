@@ -916,16 +916,24 @@ describe("Empty name sign up PROD", function () {
     await driver
       .findElement(By.xpath('//div[contains(text(), "5000")]'))
       .click();
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const vaxholmOption = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+
+    await driver.wait(until.elementIsVisible(vaxholmOption), 5000);
+
+    await vaxholmOption.click();
     await driver.findElement(By.css("body")).click();
 
     await driver

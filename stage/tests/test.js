@@ -2573,7 +2573,14 @@ describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) STAGE", func
       ),
       7000
     );
-    await plusAmount.click();
+
+    await driver.wait(until.elementIsVisible(plusAmount), 5000);
+    await driver.wait(until.elementIsEnabled(plusAmount), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      plusAmount
+    );
+    await driver.executeScript("arguments[0].click();", plusAmount);
     const thirdList = await driver.findElement(
       By.xpath(
         "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[2]"
@@ -2830,7 +2837,14 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) STAGE", function 
       ),
       7000
     );
-    await plusAmount.click();
+
+    await driver.wait(until.elementIsVisible(plusAmount), 5000);
+    await driver.wait(until.elementIsEnabled(plusAmount), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      plusAmount
+    );
+    await driver.executeScript("arguments[0].click();", plusAmount);
     const thirdList = await driver.findElement(
       By.xpath(
         "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[3]"
