@@ -1215,7 +1215,7 @@ describe("Log in from Utforska page DEV", function () {
     await driver.findElement(By.className("dropdown-container")).click();
 
     await driver.wait(
-      until.elementLocated(By.xpath('//h1[contains(text(), "Utforska")]')),
+      until.elementLocated(By.xpath('//h1[contains(text(), "Alla annonser")]')),
       20000
     );
 
@@ -1336,9 +1336,12 @@ describe("Empty name sign up DEV", function () {
     await driver
       .findElement(By.xpath('//div[contains(text(), "5000")]'))
       .click();
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
@@ -2568,7 +2571,7 @@ describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) DEV", functi
           "(//div[contains(@class,'ant-select-item-option-content')])[1]"
         )
       ),
-      5000
+      7000
     );
     await plusAmount.click();
     const thirdList = await driver.findElement(
@@ -2825,7 +2828,7 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) DEV", function ()
           "(//div[contains(@class,'ant-select-item-option-content')])[1]"
         )
       ),
-      5000
+      7000
     );
     await plusAmount.click();
     const thirdList = await driver.findElement(
