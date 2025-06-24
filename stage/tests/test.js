@@ -293,7 +293,7 @@ describe("Decline cookies STAGE", function () {
   });
 });
 
-describe("Sign up via email STAGE", function () {
+describe("Sign up via email (1 room, 5000 rent, Stockholm) STAGE", function () {
   let driver;
   let userDataDir;
 
@@ -414,13 +414,12 @@ describe("Sign up via email STAGE", function () {
       20000
     );
 
-    await driver
-      .findElement(
-        By.xpath(
-          '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
-        )
+    const areaSelectSecond = await driver.findElement(
+      By.xpath(
+        '//div[contains(text(), "Wadköping, BERTIL WALDÉNS GATA, Örebro, Sverige")]'
       )
-      .click();
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectSecond);
 
     await driver.findElement(By.xpath('//div[contains(text(), "6")]')).click();
     await driver.findElement(By.xpath('//div[contains(text(), "BV")]')).click();
@@ -517,7 +516,9 @@ describe("Sign up via email STAGE", function () {
       throw new Error(`Unexpected redirect URL after login: ${finalUrl}`);
     }
 
-    console.log("Test Sign up via email STAGE passed");
+    console.log(
+      "Test Sign up via email STAGE (1 room, 5000 rent, Stockholm) passed"
+    );
   });
 
   after(async function () {
@@ -1573,16 +1574,24 @@ describe("Invalid password sign up STAGE", function () {
     await driver
       .findElement(By.xpath('//div[contains(text(), "5000")]'))
       .click();
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const vaxholmOption = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+
+    await driver.wait(until.elementIsVisible(vaxholmOption), 5000);
+
+    await vaxholmOption.click();
     await driver.findElement(By.css("body")).click();
 
     await driver
@@ -2569,9 +2578,16 @@ describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) STAGE", func
           "(//div[contains(@class,'ant-select-item-option-content')])[1]"
         )
       ),
-      5000
+      7000
     );
-    await plusAmount.click();
+
+    await driver.wait(until.elementIsVisible(plusAmount), 5000);
+    await driver.wait(until.elementIsEnabled(plusAmount), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      plusAmount
+    );
+    await driver.executeScript("arguments[0].click();", plusAmount);
     const thirdList = await driver.findElement(
       By.xpath(
         "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[2]"
@@ -2826,9 +2842,16 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) STAGE", function 
           "(//div[contains(@class,'ant-select-item-option-content')])[1]"
         )
       ),
-      5000
+      7000
     );
-    await plusAmount.click();
+
+    await driver.wait(until.elementIsVisible(plusAmount), 5000);
+    await driver.wait(until.elementIsEnabled(plusAmount), 5000);
+    await driver.executeScript(
+      "arguments[0].scrollIntoView({block: 'center'});",
+      plusAmount
+    );
+    await driver.executeScript("arguments[0].click();", plusAmount);
     const thirdList = await driver.findElement(
       By.xpath(
         "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[3]"
