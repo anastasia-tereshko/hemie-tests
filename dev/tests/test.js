@@ -3065,3 +3065,205 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) DEV", function ()
     }, 5000);
   });
 });
+
+describe("No options chosen for 1st step of onboarding DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should  show an error", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//p[contains(text(), "Detta fält är obligatoriskt")]')
+      ),
+      20000
+    );
+
+    console.log("Test No options chosen for 1st step of onboarding DEV passed");
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
+
+describe("Go back from 2nd step of onboarding to the 1st step of onboarding DEV", function () {
+  let driver;
+  let userDataDir;
+
+  before(async function () {
+    this.timeout(60000);
+    console.log("Create folder...");
+    userDataDir = path.join(__dirname, `chrome-profile-${Date.now()}`);
+    fs.mkdirSync(userDataDir, { recursive: true });
+    console.log("Set up ChromeOptions...");
+
+    const options = new chrome.Options();
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments(`--user-data-dir=${userDataDir}`);
+    options.addArguments("--window-size=1920,1080");
+    options.addArguments("--remote-debugging-port=9222");
+    options.addArguments("--disable-blink-features=AutomationControlled");
+    console.log("Launch WebDriver...");
+
+    try {
+      driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+      console.log("WebDriver launched!");
+    } catch (error) {
+      console.error("Failed to launch WebDriver:", error);
+      console.error(error.stack);
+      throw error;
+    }
+  });
+
+  it("should land to the previous step", async function () {
+    this.timeout(20000);
+    await driver.get("https://dev.hemie.org/");
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//span[contains(text(), "Kom igång gratis")]')
+      ),
+      20000
+    );
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Kom igång gratis")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+
+    await driver.findElement(By.xpath('//div[contains(text(), "1")]')).click();
+    await driver
+      .findElement(By.xpath('//div[contains(text(), "5000")]'))
+      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
+    await driver.wait(
+      until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
+      5000
+    );
+    const areaSelectFirst = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+    await driver.executeScript("arguments[0].click();", areaSelectFirst);
+    await driver.findElement(By.css("body")).click();
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Gå vidare")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
+      ),
+      20000
+    );
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
+      2000
+    );
+
+    await driver
+      .findElement(By.xpath('//span[contains(text(), "Tillbaka")]'))
+      .click();
+
+    await driver.wait(
+      until.elementLocated(
+        By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
+      ),
+      5000
+    );
+
+    await driver.wait(
+      until.elementLocated(By.xpath('//p[contains(text(), "1/5")]')),
+      2000
+    );
+
+    console.log(
+      "Test Go back from 2nd step of onboarding to the 1st step of onboarding DEV passed"
+    );
+  });
+
+  after(async function () {
+    await driver.quit();
+    setTimeout(() => {
+      if (fs.existsSync(userDataDir)) {
+        fs.rmSync(userDataDir, { recursive: true, force: true });
+        console.log(`Deleted Chrome profile: ${userDataDir}`);
+      }
+    }, 5000);
+  });
+});
