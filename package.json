@@ -4,7 +4,7 @@
   "description": "Selenium WebDriver tests for Hemie.se",
   "type": "module",
   "scripts": {
-    "test": "mocha --require @babel/register --reporter mocha-simple-html-reporter --reporter-options output=report.html --exit **/tests/**/*.js", 
+    "test": "mocha --require @babel/register --reporter mocha-simple-html-reporter --reporter-options output=report.html --exit **/tests/**/*.js",
     "test:prod": "mocha prod/tests/**/*.js",
     "test:stage": "mocha stage/tests/**/*.js",
     "test:dev": "mocha dev/tests/**/*.js"
@@ -14,7 +14,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/register": "^7.27.1",
     "chai": "^5.2.0",
-    "chromedriver": "^136.0.3",
+    "chromedriver": "^138.0.1",
     "mocha": "^10.8.2",
     "mocha-simple-html-reporter": "^2.0.0",
     "prettier": "^3.5.3",
