@@ -25,13 +25,18 @@ jobs:
       - name: Install dependencies for Chrome/Chromedriver
         run: sudo apt-get update && sudo apt-get install -y jq unzip wget curl
 
-      - name: Install Chrome and Chromedriver
+      - name: Install latest Chrome and Chromedriver
         run: |
-          sudo apt-get install -y google-chrome-stable
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -1)
+
           CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r ".channels.Stable.version")
+
           echo "Chrome version: $CHROME_VERSION"
           echo "Using Chromedriver version: $CHROMEDRIVER_VERSION"
+
           wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
           unzip chromedriver-linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
