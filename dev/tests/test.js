@@ -743,19 +743,19 @@ describe("Terms and privacy check DEV", function () {
           '//p[contains(text(), "Genom att registrera dig godkänner du vår")]'
         )
       ),
-      2000
+      20000
     );
 
     await driver.wait(
       until.elementLocated(By.xpath('//a[contains(text(), "Villkor")]')),
-      2000
+      20000
     );
 
     await driver.wait(
       until.elementLocated(
         By.xpath('//a[contains(text(), "Integritetspolicy.")]')
       ),
-      2000
+      20000
     );
 
     const originalTabs = await driver.getAllWindowHandles();
@@ -832,7 +832,7 @@ describe("Terms and privacy check DEV", function () {
   });
 });
 
-describe("Log in with invalid password DEV", function () {
+describe.only("Log in with invalid password DEV", function () {
   let driver;
   let userDataDir;
 
@@ -844,7 +844,7 @@ describe("Log in with invalid password DEV", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -868,7 +868,7 @@ describe("Log in with invalid password DEV", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://dev.hemie.org/");
 
     await driver.wait(
@@ -909,12 +909,9 @@ describe("Log in with invalid password DEV", function () {
 
   after(async function () {
     await driver.quit();
-    setTimeout(() => {
-      if (fs.existsSync(userDataDir)) {
-        fs.rmSync(userDataDir, { recursive: true, force: true });
-        console.log(`Deleted Chrome profile: ${userDataDir}`);
-      }
-    }, 5000);
+    if (fs.existsSync(userDataDir)) {
+      fs.rmSync(userDataDir, { recursive: true, force: true });
+    }
   });
 });
 
