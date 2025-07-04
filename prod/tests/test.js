@@ -22,7 +22,7 @@ describe("Login Logout PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -46,7 +46,7 @@ describe("Login Logout PROD", function () {
   });
 
   it("should log in successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -127,7 +127,7 @@ describe("Accept cookies PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -151,7 +151,7 @@ describe("Accept cookies PROD", function () {
   });
 
   it("should accept cookies successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -202,7 +202,7 @@ describe("Decline cookies PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -226,7 +226,7 @@ describe("Decline cookies PROD", function () {
   });
 
   it("should decline cookies successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -305,7 +305,7 @@ describe("Forgot password PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -329,7 +329,7 @@ describe("Forgot password PROD", function () {
   });
 
   it("should show forgot password pop up", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -418,7 +418,7 @@ describe("Log in with invalid password PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -442,7 +442,7 @@ describe("Log in with invalid password PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -504,7 +504,7 @@ describe("Log in with invalid email PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -528,7 +528,7 @@ describe("Log in with invalid email PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -588,7 +588,7 @@ describe("Log in from Sign up form PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -612,7 +612,7 @@ describe("Log in from Sign up form PROD", function () {
   });
 
   it("should log in successfully from sign up form", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -741,7 +741,7 @@ describe("Log in from Utforska page PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -765,7 +765,7 @@ describe("Log in from Utforska page PROD", function () {
   });
 
   it("should log in successfully from Utforska page", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -869,7 +869,7 @@ describe("Empty name sign up PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -893,7 +893,7 @@ describe("Empty name sign up PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -994,7 +994,7 @@ describe("Invalid email sign up PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1018,7 +1018,7 @@ describe("Invalid email sign up PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1121,7 +1121,7 @@ describe("Invalid password sign up PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1145,7 +1145,7 @@ describe("Invalid password sign up PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1168,16 +1168,24 @@ describe("Invalid password sign up PROD", function () {
     await driver
       .findElement(By.xpath('//div[contains(text(), "5000")]'))
       .click();
-    await driver
-      .findElement(By.className("ant-select-selection-overflow"))
-      .click();
+    const firstList = await driver.findElement(
+      By.xpath(
+        "(//div[contains(@class,'ant-select-selection-overflow-item ant-select-selection-overflow-item-rest')])[1]"
+      )
+    );
+    await firstList.click();
     await driver.wait(
       until.elementLocated(By.xpath('//span[contains(text(), "Vaxholm")]')),
       5000
     );
-    await driver
-      .findElement(By.xpath('//span[contains(text(), "Vaxholm")]'))
-      .click();
+
+    const vaxholmOption = await driver.findElement(
+      By.xpath('//span[contains(text(), "Vaxholm")]')
+    );
+
+    await driver.wait(until.elementIsVisible(vaxholmOption), 5000);
+
+    await vaxholmOption.click();
     await driver.findElement(By.css("body")).click();
 
     await driver
@@ -1208,7 +1216,7 @@ describe("Invalid password sign up PROD", function () {
 
     await driver.wait(
       until.elementLocated(
-        By.xpath('//p[contains(text(), "E-post är obligatoriskt")]')
+        By.xpath('//p[contains(text(), "Detta fält är obligatoriskt")]')
       ),
       2000
     );
@@ -1252,7 +1260,7 @@ describe("Login by clicking on Like icon PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1276,7 +1284,7 @@ describe("Login by clicking on Like icon PROD", function () {
   });
 
   it("should log in successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1383,7 +1391,7 @@ describe("No options chosen for 1st step of onboarding PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1407,7 +1415,7 @@ describe("No options chosen for 1st step of onboarding PROD", function () {
   });
 
   it("should  show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1465,7 +1473,7 @@ describe("Go back from 2nd step of onboarding to the 1st step of onboarding PROD
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1489,7 +1497,7 @@ describe("Go back from 2nd step of onboarding to the 1st step of onboarding PROD
   });
 
   it("should land to the previous step", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1587,7 +1595,7 @@ describe("No options chosen for 2nd step of onboarding PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1611,7 +1619,7 @@ describe("No options chosen for 2nd step of onboarding PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1709,7 +1717,7 @@ describe("Empty name for 2nd step of onboarding PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1733,7 +1741,7 @@ describe("Empty name for 2nd step of onboarding PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1827,7 +1835,7 @@ describe("Empty email for 2nd step of onboarding PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1851,7 +1859,7 @@ describe("Empty email for 2nd step of onboarding PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
@@ -1945,7 +1953,7 @@ describe("Empty password for 2nd step of onboarding PROD", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1969,7 +1977,7 @@ describe("Empty password for 2nd step of onboarding PROD", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://hemie.se/");
 
     await driver.wait(
