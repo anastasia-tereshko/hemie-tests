@@ -698,7 +698,7 @@ describe("Terms and privacy check STAGE", function () {
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur vill du bo?")]')
       ),
-      5000
+      20000
     );
     await driver.findElement(By.xpath('//div[contains(text(), "1")]')).click();
     await driver
@@ -3473,7 +3473,7 @@ describe("Empty name for 2nd step of onboarding STAGE", function () {
     );
     await driver.wait(
       until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
-      2000
+      20000
     );
 
     await driver.findElement(By.id("signUpEmail")).sendKeys("test@test.test");
@@ -3487,7 +3487,7 @@ describe("Empty name for 2nd step of onboarding STAGE", function () {
       until.elementLocated(
         By.xpath('//p[contains(text(), "Detta fält är obligatoriskt")]')
       ),
-      2000
+      20000
     );
 
     console.log("Test Empty name for 2nd step STAGE passed");

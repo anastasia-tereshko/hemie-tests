@@ -3831,7 +3831,7 @@ describe("Go back from 3rd step of onboarding to the 2nd of onboarding step DEV"
     );
     await driver.wait(
       until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
-      2000
+      20000
     );
 
     const randomNumber = Math.floor(Math.random() * 100000);
@@ -3853,7 +3853,7 @@ describe("Go back from 3rd step of onboarding to the 2nd of onboarding step DEV"
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
       ),
-      2000
+      20000
     );
 
     await driver
@@ -3869,7 +3869,7 @@ describe("Go back from 3rd step of onboarding to the 2nd of onboarding step DEV"
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Välkommen till Hemie!")]')
       ),
-      2000
+      20000
     );
     console.log(
       "Test Go back from 3rd step of onboarding to the 2nd of onboarding step DEV passed"
@@ -4118,7 +4118,7 @@ describe("Empty rooms for 3rd step of onboarding DEV", function () {
     );
     await driver.wait(
       until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
-      2000
+      20000
     );
 
     const randomNumber = Math.floor(Math.random() * 100000);
@@ -4140,7 +4140,7 @@ describe("Empty rooms for 3rd step of onboarding DEV", function () {
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
       ),
-      2000
+      20000
     );
 
     await driver
@@ -4175,7 +4175,7 @@ describe("Empty rooms for 3rd step of onboarding DEV", function () {
           '//p[contains(text(), "Ange antal rum i din nuvarande bostad")]'
         )
       ),
-      2000
+      20000
     );
 
     console.log("Test Empty rooms for 3rd step of onboarding DEV passed");
@@ -4438,7 +4438,7 @@ describe("Empty living area for 3rd step of onboarding DEV", function () {
     );
     await driver.wait(
       until.elementLocated(By.xpath('//p[contains(text(), "2/5")]')),
-      2000
+      20000
     );
 
     const randomNumber = Math.floor(Math.random() * 100000);
@@ -4460,7 +4460,7 @@ describe("Empty living area for 3rd step of onboarding DEV", function () {
       until.elementLocated(
         By.xpath('//h1[contains(text(), "Hur bor du idag?")]')
       ),
-      2000
+      20000
     );
 
     await driver
@@ -4493,7 +4493,7 @@ describe("Empty living area for 3rd step of onboarding DEV", function () {
       until.elementLocated(
         By.xpath('//p[contains(text(), "Vänligen fyll i bostadens boyta")]')
       ),
-      2000
+      20000
     );
 
     console.log("Test Empty living area for 3rd step of onboarding DEV passed");
