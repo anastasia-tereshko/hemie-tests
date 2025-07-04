@@ -1,7 +1,0 @@
-[19004:8812:0704/150017.072:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:202] No machine level policy manager exists.
-[19004:8812:0704/150018.437:INFO:CONSOLE:1] "[TikTok Pixel] - Invalid pixel ID
-Issue: The pixel ID is invalid. This could prevent your pixel from receiving data.
-Suggestion: Please go to Events Manager and find the correct pixel ID.", source: https://analytics.tiktok.com/i18n/pixel/static/main.MTBjODI0ODZkOA.js (1)
-[19004:8812:0704/150019.338:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://dev.hemie.org/ (0)
-[10372:12588:0704/150020.312:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[10372:12588:0704/150020.312:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
