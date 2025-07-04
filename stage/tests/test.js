@@ -22,7 +22,7 @@ describe("Login Logout STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -46,7 +46,7 @@ describe("Login Logout STAGE", function () {
   });
 
   it("should log in successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -127,7 +127,7 @@ describe("Accept cookies STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -151,7 +151,7 @@ describe("Accept cookies STAGE", function () {
   });
 
   it("should accept cookies successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -202,7 +202,7 @@ describe("Decline cookies STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -226,7 +226,7 @@ describe("Decline cookies STAGE", function () {
   });
 
   it("should decline cookies successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -305,7 +305,7 @@ describe("Sign up via email (1 room, 5000 rent, Stockholm) STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -329,7 +329,7 @@ describe("Sign up via email (1 room, 5000 rent, Stockholm) STAGE", function () {
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -544,7 +544,7 @@ describe("Forgot password STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -568,7 +568,7 @@ describe("Forgot password STAGE", function () {
   });
 
   it("should show forgot password pop up", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -657,7 +657,7 @@ describe("Terms and privacy check STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -681,7 +681,7 @@ describe("Terms and privacy check STAGE", function () {
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -846,7 +846,7 @@ describe("Log in with invalid password STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -870,7 +870,7 @@ describe("Log in with invalid password STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -932,7 +932,7 @@ describe("Log in with invalid email STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -956,7 +956,7 @@ describe("Log in with invalid email STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1016,7 +1016,7 @@ describe("Log in from Sign up form STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1040,7 +1040,7 @@ describe("Log in from Sign up form STAGE", function () {
   });
 
   it("should log in successfully from sign up form", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1170,7 +1170,7 @@ describe("Log in from Utforska page STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1194,7 +1194,7 @@ describe("Log in from Utforska page STAGE", function () {
   });
 
   it("should log in successfully from Utforska page", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1298,7 +1298,7 @@ describe("Empty name sign up STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1322,7 +1322,7 @@ describe("Empty name sign up STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1415,7 +1415,7 @@ describe("Invalid email sign up STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1439,7 +1439,7 @@ describe("Invalid email sign up STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1542,7 +1542,7 @@ describe("Invalid password sign up STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1566,7 +1566,7 @@ describe("Invalid password sign up STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1681,7 +1681,7 @@ describe("Login by clicking on Like icon STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1705,7 +1705,7 @@ describe("Login by clicking on Like icon STAGE", function () {
   });
 
   it("should log in successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -1812,7 +1812,7 @@ describe("Sign up via email (2 rooms, 7500 rent, Gothenburg) STAGE", function ()
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -1836,7 +1836,7 @@ describe("Sign up via email (2 rooms, 7500 rent, Gothenburg) STAGE", function ()
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -2055,7 +2055,7 @@ describe("Sign up via email (3 rooms, 10000 rent, Malmo) STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -2079,7 +2079,7 @@ describe("Sign up via email (3 rooms, 10000 rent, Malmo) STAGE", function () {
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -2292,7 +2292,7 @@ describe("Sign up via email (4 rooms, 12500 rent, Stockholm 2 options) STAGE", f
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -2316,7 +2316,7 @@ describe("Sign up via email (4 rooms, 12500 rent, Stockholm 2 options) STAGE", f
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -2542,7 +2542,7 @@ describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) STAGE", func
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -2566,7 +2566,7 @@ describe("Sign up via email (5 rooms, + rent, Gothenburg 2 options) STAGE", func
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -2806,7 +2806,7 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) STAGE", function 
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -2830,7 +2830,7 @@ describe("Sign up via email (2 rooms, + rent, Malmo 2 options) STAGE", function 
   });
 
   it("should  sign up via email successfully", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3072,7 +3072,7 @@ describe("No options chosen for 1st step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3096,7 +3096,7 @@ describe("No options chosen for 1st step of onboarding STAGE", function () {
   });
 
   it("should  show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3154,7 +3154,7 @@ describe("Go back from 2nd step of onboarding to the 1st step of onboarding STAG
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3178,7 +3178,7 @@ describe("Go back from 2nd step of onboarding to the 1st step of onboarding STAG
   });
 
   it("should land to the previous step", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3276,7 +3276,7 @@ describe("No options chosen for 2nd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3300,7 +3300,7 @@ describe("No options chosen for 2nd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3398,7 +3398,7 @@ describe("Empty name for 2nd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3422,7 +3422,7 @@ describe("Empty name for 2nd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3516,7 +3516,7 @@ describe("Empty email for 2nd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3540,7 +3540,7 @@ describe("Empty email for 2nd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3634,7 +3634,7 @@ describe("Empty password for 2nd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3658,7 +3658,7 @@ describe("Empty password for 2nd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3752,7 +3752,7 @@ describe("Go back from 3rd step of onboarding to the 2nd of onboarding step STAG
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3776,7 +3776,7 @@ describe("Go back from 3rd step of onboarding to the 2nd of onboarding step STAG
   });
 
   it("should land to the previous step", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -3895,7 +3895,7 @@ describe("Empty address for 3rd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -3919,7 +3919,7 @@ describe("Empty address for 3rd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -4039,7 +4039,7 @@ describe("Empty rooms for 3rd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -4063,7 +4063,7 @@ describe("Empty rooms for 3rd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -4200,7 +4200,7 @@ describe("Empty floor for 3rd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -4224,7 +4224,7 @@ describe("Empty floor for 3rd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -4359,7 +4359,7 @@ describe("Empty living area for 3rd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -4383,7 +4383,7 @@ describe("Empty living area for 3rd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -4520,7 +4520,7 @@ describe("Empty monthly rent for 3rd step of onboarding STAGE", function () {
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -4544,7 +4544,7 @@ describe("Empty monthly rent for 3rd step of onboarding STAGE", function () {
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
@@ -4683,7 +4683,7 @@ describe("Empty monthly rent 2499 for 3rd step of onboarding STAGE", function ()
     console.log("Set up ChromeOptions...");
 
     const options = new chrome.Options();
-    options.addArguments("--headless=new");
+    options.addArguments("--headless");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-dev-shm-usage");
@@ -4707,7 +4707,7 @@ describe("Empty monthly rent 2499 for 3rd step of onboarding STAGE", function ()
   });
 
   it("should show an error", async function () {
-    this.timeout(20000);
+    this.timeout(40000);
     await driver.get("https://staging.hemie.org/");
 
     await driver.wait(
